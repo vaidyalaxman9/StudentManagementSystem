@@ -1,7 +1,7 @@
 
 *.class
 /.metadata/
-*/.classpath
+.classpath
 .DS_Store
 .project
 .settings
