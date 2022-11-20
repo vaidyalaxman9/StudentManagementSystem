@@ -38,4 +38,65 @@ public class StudentDao {
 		}
 		return studentList;
 	}
+
+	public Student getStudentById(Integer studentId) {
+		Student student = new Student();
+		try {
+			Connection con = databaseConnection.getDatabaseConnection();
+
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from student where student_Id = " + studentId);
+
+			while (rs.next()) {
+				student = new Student(rs.getInt("student_Id"), rs.getString("std_Name"), rs.getString("mobile"),
+						rs.getString("address"), rs.getString("notes"), rs.getString("student_class_Id"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return student;
+	}
+
+	public List<Student> fetchStudentData() {
+		List<Student> studentList = new ArrayList<Student>();
+		try {
+			Connection con = databaseConnection.getDatabaseConnection();
+
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from student");
+
+			while (rs.next()) {
+				Student s = new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6));
+				studentList.add(s);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return studentList;
+	}
+
+	public int saveStudent(String stdName, String mobile, String address, String notes, int classId) {
+		int updateCount = 0;
+		try {
+			Connection con = databaseConnection.getDatabaseConnection();
+
+			Statement stmt = con.createStatement();
+			String query = "INSERT INTO student (std_Name,  mobile, address, notes, student_class_Id) values ('"
+					+ stdName + "',  '" + mobile + "','" + address + "', '" + notes + "', " + classId + ")";
+			updateCount = stmt.executeUpdate(query);
+
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return updateCount;
+
+	}
 }

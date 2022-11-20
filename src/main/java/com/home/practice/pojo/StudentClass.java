@@ -5,6 +5,7 @@ public class StudentClass {
 	public int classId;
 	public String className;
 	public String notes;
+	
 	public int getClassId() {
 		return classId;
 	}

@@ -18,4 +18,28 @@ public class StudentBo {
 		return studentDao.getAllStudents();
 	}
 
+	public Student getStudentData(Integer studentId) {
+		return studentDao.getStudentById(studentId);
+	}
+
+	public List<Student> addStudentInExistingList(List<Student> studentList, int studentId, String stdName,
+			 String mobile, String address, String notes, String className) {
+		Student s = new Student(studentId, stdName, mobile, address, notes, className);
+		studentList.add(s);
+		return studentList;
+	}
+
+	public List<Student> getStudentData() {
+		return studentDao.fetchStudentData();
+	}
+
+	public boolean addStudent(String stdName,  String mobile, String address, String notes,
+			int classId) {
+		int updateCount = studentDao.saveStudent(stdName, mobile, address, notes, classId);
+		if (updateCount > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
