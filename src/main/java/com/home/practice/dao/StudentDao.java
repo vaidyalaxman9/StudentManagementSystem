@@ -99,4 +99,42 @@ public class StudentDao {
 		return updateCount;
 
 	}
+
+	public int updateStudent(String stdName, String mobile, String address, String notes, int className,
+			int studentId) {
+		int updateCount = 0;
+		try {
+			Connection con = databaseConnection.getDatabaseConnection();
+
+			Statement stmt = con.createStatement();
+			String query = "update student set std_Name = '" + stdName + "',  mobile='" + mobile + "', address='"
+					+ address + "', notes='" + notes + "', student_class_Id = " + className + " where student_Id = "
+					+ studentId;
+			updateCount = stmt.executeUpdate(query);
+
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return updateCount;
+
+	}
+
+	public int deleteStudent(Integer studentId) {
+		int udpateCount = 0;
+		try {
+			Connection con = databaseConnection.getDatabaseConnection();
+
+			Statement stmt = con.createStatement();
+			String query = "delete from student where student_Id = " + studentId;
+			udpateCount = stmt.executeUpdate(query);
+
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return udpateCount;
+	}
 }
